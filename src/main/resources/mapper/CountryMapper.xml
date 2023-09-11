@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.covid.covid.mapper.CountryMapper">
+    <resultMap id="covidDataResultMap" type="com.covid.covid.pojo.Country">
+        <result property="name" column="location"/>
+        <result property="value" column="total_cases"/>
+    </resultMap>
+
+    <select id="getCountryDataByMonth" resultMap="covidDataResultMap">
+        SELECT location, total_cases
+        FROM owid_covid_data_filtered
+        WHERE date >= #{data} AND  DATE_ADD(#{date}, INTERVAL 1 MONTH) > date
+    </select>
+
+</mapper>
